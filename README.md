@@ -1,21 +1,34 @@
-# Projeto AURA (Autonomous Units for Remote Assessment)
+# Projeto AURA
 
 **Estação Autônoma de Reconhecimento Ambiental com Transmissão LoRa**  
 **Data:** 16 de Julho de 2025  
-**Integrantes:** Gabriel da Conceição Miranda, Pedro Henrique Dias Avelar, João Magno Lourenço Soares
+**Integrantes:** Gabriel da Conceição Miranda, Pedro Henrique Dias Avelar e João Magno Lourenço Soares.
 
 ---
 
 ## 📌 Descrição do Projeto
 
-O Projeto AURA visa desenvolver uma estação ambiental remota capaz de monitorar variáveis climáticas e ambientais em tempo real, utilizando a tecnologia LoRa (Long Range) para comunicação de longa distância com baixo consumo de energia. 
+O monitoramento ambiental em áreas remotas ou extensas, como em aplicações agrícolas, reservas ecológicas ou bacias hidrográficas, enfrenta um desafio fundamental de conectividade. Soluções tradicionais baseadas em Wi-Fi ou Bluetooth possuem alcance limitado, enquanto alternativas via satélite ou celular apresentam um custo elevado e alto consumo de energia, tornando-as inviáveis para implementações em larga escala e de baixo orçamento.
 
-Esse sistema é ideal para aplicações em áreas remotas e de difícil acesso, como plantações agrícolas, reservas ambientais e regiões de monitoramento hidrológico, onde tecnologias convencionais de comunicação (Wi-Fi, Bluetooth, celular) se mostram ineficientes ou inviáveis economicamente.
+Essa lacuna tecnológica dificulta a coleta de dados ambientais granulares e em tempo real, informações que são cruciais para a tomada de decisão em agricultura de precisão, pesquisa científica e gestão de desastres naturais. Há uma necessidade clara de um sistema de monitoramento que seja, ao mesmo tempo, de baixo custo, de baixo consumo energético e capaz de transmitir dados a longas distâncias.
 
-A estação será composta por dois módulos:
+Este projeto propõe o desenvolvimento de uma estação de observação ambiental de dois módulos (nó sensor e estação base) que utiliza a tecnologia LoRa (Long Range) para superar essas limitações, permitindo a coleta de dados de forma acessível e confiável em locais sem infraestrutura de comunicação convencional.
 
-- **Nó Sensor:** Responsável por coletar os dados ambientais e transmiti-los via LoRa.
-- **Estação Base:** Responsável por receber, decodificar e exibir os dados recebidos.
+---
+
+## 🆔 Por que "AURA"?
+
+O nome **AURA** pode ser interpretado como um acrônimo para:
+
+**Autonomous Unattended Remote Analysis**  
+(*Análise Remota Autônoma e Não Monitorada*)
+
+ou
+
+**Autonomous Units for Remote Assessment**  
+(*Unidades Autônomas para Avaliação Remota*)
+
+Além disso, o termo "aura" também evoca a ideia de um campo sutil ao redor de algo — uma metáfora apropriada para sensores ambientais que "percebem" mudanças ao seu redor, de forma quase invisível.
 
 ---
 
@@ -74,22 +87,6 @@ Oferecer uma alternativa viável, escalável e de baixo custo para o monitoramen
 
 ---
 
-## 📦 Estrutura do Projeto (sugestão)
-
-```
-aura/
-├── src/
-│   ├── sensor_node/
-│   ├── base_station/
-│   └── common/
-├── include/
-├── lib/
-├── README.md
-└── platformio.ini
-```
-
----
-
 ## 📅 Status Atual
 
 - ✅ Definição de escopo e requisitos
@@ -97,8 +94,3 @@ aura/
 - 📦 Planejamento modular do código e interfaces
 - 🚧 Integração futura com armazenamento e controle local (opcional)
 
----
-
-## 📝 Licença
-
-Este projeto é acadêmico e não possui fins lucrativos. O código-fonte será disponibilizado sob uma licença open source compatível (a definir).
