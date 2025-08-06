@@ -6,7 +6,7 @@ Este documento descreve visualmente o funcionamento físico e lógico do sistema
 
 ## 🖼️ Imagem 1: Arquitetura Física do Nó Sensor
 
-![Arquitetura Física do Nó Sensor](aura_sensors.jpg)
+![Arquitetura Física do Nó Sensor](aura_sensors.png)
 
 Esta imagem detalha a montagem física de um único **Nó Sensor**, a unidade instalada no campo para coletar dados meteorológicos. Ela representa a montagem prática do hardware do projeto.
 
