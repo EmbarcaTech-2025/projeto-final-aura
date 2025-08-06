@@ -1,96 +1,96 @@
-# Projeto AURA
+# 🌤️ Projeto AURA: Rede Meteorológica de Baixo Custo com Meshtastic
 
-**Estação Autônoma de Reconhecimento Ambiental com Transmissão LoRa**  
-**Data:** 16 de Julho de 2025  
-**Integrantes:** Gabriel da Conceição Miranda, Pedro Henrique Dias Avelar e João Magno Lourenço Soares.
+**Data:** 06 de Agosto de 2025  
+**Integrantes:** Gabriel da Conceição Miranda, Pedro Henrique Dias Avelar e João Magno Lourenço Soares
 
 ---
 
 ## 📌 Descrição do Projeto
 
-O monitoramento ambiental em áreas remotas ou extensas, como em aplicações agrícolas, reservas ecológicas ou bacias hidrográficas, enfrenta um desafio fundamental de conectividade. Soluções tradicionais baseadas em Wi-Fi ou Bluetooth possuem alcance limitado, enquanto alternativas via satélite ou celular apresentam um custo elevado e alto consumo de energia, tornando-as inviáveis para implementações em larga escala e de baixo orçamento.
+O Projeto AURA propõe uma solução inovadora para a coleta de dados ambientais em áreas rurais e remotas. Utilizando estações meteorológicas de baixo custo e alta autonomia energética, conectadas por uma rede **LoRa Mesh com o framework Meshtastic**, o sistema oferece **monitoramento climático de microescala** em tempo real, sem depender de infraestrutura celular ou Wi-Fi.
 
-Essa lacuna tecnológica dificulta a coleta de dados ambientais granulares e em tempo real, informações que são cruciais para a tomada de decisão em agricultura de precisão, pesquisa científica e gestão de desastres naturais. Há uma necessidade clara de um sistema de monitoramento que seja, ao mesmo tempo, de baixo custo, de baixo consumo energético e capaz de transmitir dados a longas distâncias.
-
-Este projeto propõe o desenvolvimento de uma estação de observação ambiental de dois módulos (nó sensor e estação base) que utiliza a tecnologia LoRa (Long Range) para superar essas limitações, permitindo a coleta de dados de forma acessível e confiável em locais sem infraestrutura de comunicação convencional.
+Esses dados são transmitidos a um servidor central via **MQTT**, possibilitando **análises históricas** e **previsões de chuva** com alta precisão para áreas específicas, como fazendas, bacias hidrográficas e reservas ecológicas.
 
 ---
 
-## 🆔 Por que "AURA"?
+## 🌧️ A Importância da Previsão de Chuva no Campo
 
-O nome **AURA** pode ser interpretado como um acrônimo para:
+- **Otimização da Irrigação**  
+- **Planejamento Logístico Agrícola**  
+- **Aplicação Inteligente de Defensivos Agrícolas**  
+- **Prevenção de Doenças por Umidade**  
 
-**Autonomous Unattended Remote Analysis**  
-(*Análise Remota Autônoma e Não Monitorada*)
-
-ou
-
-**Autonomous Units for Remote Assessment**  
-(*Unidades Autônomas para Avaliação Remota*)
-
-Além disso, o termo "aura" também evoca a ideia de um campo sutil ao redor de algo — uma metáfora apropriada para sensores ambientais que "percebem" mudanças ao seu redor, de forma quase invisível.
+Previsões climáticas localizadas ajudam na economia de recursos e na proteção da produção.
 
 ---
 
-## ✅ Requisitos do Sistema
+## 🚀 Vantagens Estratégicas do Projeto
 
-### 🔧 Requisitos Funcionais (RF)
-
-- **RF01**: O nó sensor deve coletar dados de sensores ambientais (temperatura, pressão, umidade do ar e do solo, luminosidade, vibração).
-- **RF02**: O nó sensor deve transmitir os dados via protocolo LoRa.
-- **RF03**: A estação base deve receber os pacotes de dados via LoRa.
-- **RF04**: A estação base deve decodificar e exibir os dados recebidos em um display OLED (ou similar).
-- **RF05 (Opcional)**: O acelerômetro deve detectar impactos ou vibrações anômalas.
-- **RF06 (Opcional)**: O nó sensor pode armazenar leituras em um cartão MicroSD (data logging).
-- **RF07 (Opcional)**: A estação base pode incluir um teclado matricial como interface de controle.
-
-### ⚙️ Requisitos Não Funcionais (RNF)
-
-- **RNF01**: Comunicação obrigatoriamente via LoRa, com alcance de quilômetros em linha de visada.
-- **RNF02**: O nó sensor deve ser otimizado para baixo consumo de energia (uso de baterias ou painéis solares).
-- **RNF03**: O projeto deve ter baixo custo, utilizando componentes comerciais e ESP32.
-- **RNF04**: O código será modular, com separação entre sensores, comunicação e interface.
-- **RNF05**: A interface da estação base deve ser clara e objetiva.
-- **RNF06**: O projeto será desenvolvido fora da plataforma BitDogLab, mas poderá ser integrado futuramente.
+- **💰 Baixo Custo de Hardware**  
+- **🔋 Baixo Consumo de Energia (deep sleep + solar)**  
+- **📡 Grande Cobertura com Rede Mesh Meshtastic**  
+- **🧩 Sistema Escalável e Modular**  
 
 ---
 
-## 🧰 Lista de Materiais Preliminar
+## 🧠 O Papel do Meshtastic
 
-| Componente                           | Quantidade | Função Principal                                             |
-|--------------------------------------|------------|--------------------------------------------------------------|
-| Placa Heltec WiFi LoRa 32 V3        | 2          | 1x Nó Sensor (TX), 1x Estação Base (RX)                     |
-| Sensor de Temp., Pressão, Umidade   | 1          | Medição de dados atmosféricos                               |
-| Sensor de Umidade do Solo Capacitivo| 1          | Medição da umidade do solo                                   |
-| Sensor de Luminosidade              | 1          | Medição de luz ambiente                                     |
-| Acelerômetro e Giroscópio           | 1          | Detecção de vibração/anomalias                              |
-| Módulo Leitor de Cartão MicroSD     | 1          | (Opcional) Armazenamento local de dados                     |
-| Teclado Matricial 4x4               | 1          | (Opcional) Interface de controle para estação base          |
-| Protoboard e Jumpers                | 1 (kit)    | Montagem e conexões de prototipagem                         |
-| Fonte de Alimentação / Bateria     | 2          | Alimentação dos módulos durante o desenvolvimento           |
+- **Rede Mesh Autônoma:** Nós se reorganizam dinamicamente.  
+- **Módulo de Telemetria Integrado:** Coleta de dados nativa via sensores.  
+- **Gateway MQTT:** Envia dados LoRa da rede para um broker MQTT (local ou na nuvem).  
 
 ---
 
-## 🚀 Objetivo
+## ✅ Requisitos Funcionais
 
-Oferecer uma alternativa viável, escalável e de baixo custo para o monitoramento ambiental em locais remotos, com foco na autonomia energética, simplicidade de uso e robustez na comunicação.
+- **RF01:** Coletar dados de temperatura, pressão, luminosidade e UV.  
+- **RF02:** Transmitir dados via LoRa Mesh com Meshtastic.  
+- **RF03:** Encaminhar dados para broker MQTT via nó gateway.  
+- **RF04:** Armazenar os dados recebidos em um banco de dados para análise.  
+- **RF05 (Opcional):** Notificação por sensor de presença (PIR).  
+
+---
+
+## ⚙️ Requisitos Não Funcionais
+
+- **RNF01:** Comunicação obrigatoriamente via rede Mesh LoRa.  
+- **RNF02:** Consumo energético otimizado (modo deep sleep).  
+- **RNF03:** Uso de componentes de baixo custo e ESP32.  
+- **RNF04:** Integração modular com sensores via Meshtastic.  
+- **RNF05:** Interface de visualização simples e clara.  
+- **RNF06:** Desenvolvimento fora da BitDogLab, mas com possibilidade de futura integração.  
+
+---
+
+## 🧰 Lista de Materiais
+
+| Componente                            | Quantidade | Função Principal                                                    |
+|--------------------------------------|------------|---------------------------------------------------------------------|
+| Placa Heltec WiFi LoRa 32 V3         | 2+         | 1x Gateway MQTT, 1x ou mais nós sensores                            |
+| Sensor BME280                         | 1 por nó   | Temperatura, Umidade e Pressão                                      |
+| Sensor de Luz e UV (LTR-390)         | 1 por nó   | Luminosidade e Índice UV                                            |
+| Sensor de Luz Alternativo (ex: OPT3001) | 1 por nó   | Alternativa para medição precisa da luz ambiente                    |
+| Sensor PIR (HC-SR501)                | 1 (opcional) | Detecção de presença (alerta de segurança)                         |
+| Bateria / Fonte / Painel Solar       | 1 por nó   | Alimentação autônoma dos módulos em campo                           |
+| Raspberry Pi 4 (ou similar)          | 1 (opcional) | Hospedagem local do broker MQTT e banco de dados                   |
+| Protoboard e Jumpers                 | 1 kit       | Conexões de prototipagem                                            |
+
+---
+
+## 🎯 Objetivo
+
+Desenvolver e implantar uma **rede meteorológica escalável**, **de baixo custo** e **autônoma em energia**, baseada em **LoRa Mesh com Meshtastic**, para fornecer dados de microclima em tempo real e auxiliar decisões inteligentes em **aplicações agrícolas e ambientais**.
 
 ---
 
 ## 📚 Plataforma de Desenvolvimento
 
-- **Microcontrolador:** ESP32 (Heltec LoRa 32 V3)
-- **Ambiente de Desenvolvimento:** Arduino IDE / VS Code + PlatformIO
-- **Protocolos de Comunicação:** LoRa
-- **Interface local:** Display OLED (integrado) + [Opcional] Teclado Matricial
-- **Armazenamento:** [Opcional] Cartão MicroSD
+- **Microcontrolador:** ESP32 (Heltec WiFi LoRa 32 V3)  
+- **Firmware:** [Meshtastic](https://meshtastic.org) (configurável via app ou interface web)  
+- **Protocolos:** LoRa Mesh, MQTT  
+- **Sensores:** Comunicação via I²C  
+- **Backend:** Broker MQTT (ex: Mosquitto), Banco de Dados (ex: InfluxDB), Visualização (ex: Grafana)  
 
 ---
 
-## 📅 Status Atual
-
-- ✅ Definição de escopo e requisitos
-- 🔧 Início da prototipagem com sensores e comunicação LoRa
-- 📦 Planejamento modular do código e interfaces
-- 🚧 Integração futura com armazenamento e controle local (opcional)
-
+> Este projeto representa um passo significativo na democratização do acesso à informação meteorológica de precisão, especialmente em regiões de difícil conectividade.
