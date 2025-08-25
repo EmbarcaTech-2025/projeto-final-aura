@@ -5,7 +5,7 @@ Este documento apresenta e explica algumas imagens que ilustram a arquitetura, f
 ---
 
 ## 📷 Imagem 1 – Dispositivo ESP32 LoRa Heltec V3
-**Arquivo:** `esp32.jpg`
+![Dispositivo ESP32 LoRa Heltec V3](esp32.jpg)
 
 O dispositivo mostrado é o **ESP32 LoRa modelo Heltec V3**, utilizado como unidade de processamento e comunicação.  
 Na imagem, é possível observar o procedimento de **conexão de um smartphone com o dispositivo via Bluetooth**. Durante esse processo, um **código PIN** é exibido no display OLED integrado.  
@@ -21,7 +21,7 @@ Essa interface proporciona maior transparência no funcionamento do sistema, tor
 ---
 
 ## 📷 Imagem 2 – Prototipagem do Dispositivo de Campo
-**Arquivo:** `prototipagem_sensores.jpg`
+![Prototipagem do Dispositivo de Campo](prototipagem_sensores.jpg)
 
 A imagem mostra a fase de **prototipagem em uma protoboard** do dispositivo de campo.  
 
@@ -31,5 +31,3 @@ A imagem mostra a fase de **prototipagem em uma protoboard** do dispositivo de c
 
 Os dados coletados por esses sensores são transmitidos via **rádio LoRa** até o **dispositivo da base**, onde são recebidos, processados e tratados.  
 Além disso, o sistema é capaz de realizar **envio de alertas em qualquer direção**, ampliando suas aplicações em monitoramento ambiental e automação.  
-
-
