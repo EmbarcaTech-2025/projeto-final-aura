@@ -32,11 +32,4 @@ A imagem mostra a fase de **prototipagem em uma protoboard** do dispositivo de c
 Os dados coletados por esses sensores são transmitidos via **rádio LoRa** até o **dispositivo da base**, onde são recebidos, processados e tratados.  
 Além disso, o sistema é capaz de realizar **envio de alertas em qualquer direção**, ampliando suas aplicações em monitoramento ambiental e automação.  
 
----
 
-## 📌 Conclusão
-Essas imagens representam etapas cruciais do desenvolvimento do **Projeto AURA**:  
-- A integração entre hardware e interface de usuário (via display e Bluetooth).  
-- A prototipagem prática do sistema de coleta e transmissão de dados ambientais.  
-
-O conjunto evidencia a viabilidade técnica do projeto e seu potencial de evolução para aplicações em larga escala.
