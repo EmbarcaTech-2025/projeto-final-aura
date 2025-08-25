@@ -88,4 +88,11 @@ O sistema atual permite apenas o acompanhamento passivo dos dados via smartphone
 ### 3. Desafio: Autonomia Energética em Locais Remotos
 Para instalações em campo, longe de fontes de energia, a autonomia do dispositivo é um requisito fundamental.  
 
-**Melhoria Planejada:** Implementação de uma solução de alimentação baseada em bateria e uma placa solar de carregamento. O firmware já é capaz de transmitir informações de energia do dispositivo (tensão e cor
+**Melhoria Planejada:** Implementação de uma solução de alimentação baseada em bateria e uma placa solar de carregamento. O firmware já é capaz de transmitir informações de energia do dispositivo (tensão e corrente), o que possibilita uma manutenção eficiente e o monitoramento da saúde energética dos nós a distância.  
+
+---
+
+### 4. Desafio: Proteção do Equipamento
+A instalação em locais remotos e sem vigilância expõe o equipamento a riscos de furto.  
+
+**Melhoria Planejada:** Adição de um sensor de presença (PIR). Esta funcionalidade, quando combinada com o GPS do dispositivo, poderá alertar sobre movimentação nas proximidades, funcionando como uma medida de segurança para proteger o equipamento de furtos e vandalismo.  
