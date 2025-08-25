@@ -1,71 +1,91 @@
-# Projeto AURA
+# Projeto AURA: Estado Atual, Desafios e Evolução Futura
 
 ## Estado Atual
-O **Projeto AURA** encontra-se em estágio de **protótipo funcional altamente eficaz**, validando sua arquitetura e funcionalidades principais.  
-Atualmente, o sistema:
+O Projeto AURA alcançou um estágio de protótipo funcional altamente eficaz, validando sua arquitetura e capacidades centrais. Atualmente, o sistema é plenamente capaz de ler dados de múltiplos sensores ambientais conectados ao barramento I²C e transmiti-los via rádio LoRa com uma eficiência energética notável, permitindo um longo alcance de até 3 km.
 
-- Lê dados de múltiplos sensores ambientais conectados ao barramento **I²C**.  
-- Transmite as informações via **rádio LoRa** com eficiência energética notável.  
-- Possui **alcance de até 3 km** em campo aberto.  
+Um dos diferenciais competitivos do projeto reside em sua alta escalabilidade e baixo custo de hardware, o que facilita a expansão da rede para aumentar a densidade de dados e, consequentemente, a precisão das previsões climáticas. A flexibilidade da solução é ampliada por um conjunto robusto de ferramentas de interação, que inclui aplicativos para smartphones (Android e iOS), uma interface web e uma ferramenta de linha de comando (CLI) em Python, todas permitindo a configuração remota (OTA) dos dispositivos.
 
-O projeto se destaca pela **alta escalabilidade** e **baixo custo de hardware**, permitindo a expansão da rede e aumentando a densidade de dados para maior precisão em previsões climáticas.  
+A capacidade de configuração OTA é um dos pontos fortes do Meshtastic, permitindo ao usuário gerenciar remotamente uma ampla gama de parâmetros. Embora o projeto não utilize todas as configurações, sua capacidade de expansão é notável, abrangendo:
 
-Além disso, oferece múltiplas ferramentas de interação:  
-- **Aplicativos móveis (Android e iOS)**  
-- **Interface Web**  
-- **Ferramenta de linha de comando (CLI) em Python**  
+### Configurações de Rede
+- Habilitação de Wi-Fi  
+- Ethernet  
+- Definição de servidores NTP e IPv4  
 
-Todas possibilitam **configuração remota (OTA)** dos dispositivos.
+### Configurações LoRa
+- Ajustes de região  
+- Potência de transmissão  
+- Fator de espalhamento  
+- Frequência  
+- Outras opções cruciais para a comunicação  
+
+### Configurações de Energia
+- Gerenciamento do modo de economia de energia  
+- Intervalos de deep sleep  
+- Monitoramento de bateria  
+
+### Configurações de Dispositivo
+- Papel na rede (nó sensor ou gateway)  
+- Modo de retransmissão  
+- Ativação de LEDs  
+- Entre outros  
+
+### Configurações de Telemetria e MQTT
+- Habilitação do módulo de telemetria  
+- Envio de métricas de dispositivo  
+- Encaminhamento de dados para um servidor MQTT  
 
 ---
 
-## Configurações OTA Suportadas
-O AURA herda grande parte das capacidades do **Meshtastic**, permitindo a configuração remota de diversos parâmetros:
+## Sensores Suportados para Telemetria
+O projeto é capaz de ler dados de diversos sensores que se conectam ao dispositivo via barramento I²C. A detecção automática no firmware simplifica a integração de uma vasta gama de sensores, incluindo:
 
-- **Configurações de Rede:** Wi-Fi, Ethernet, servidores NTP e IPv4.  
-- **Configurações LoRa:** região, potência de transmissão, fator de espalhamento, frequência etc.  
-- **Configurações de Energia:** modos de economia, deep sleep, monitoramento de bateria.  
-- **Configurações de Dispositivo:** papel na rede (nó sensor/gateway), retransmissão, LEDs etc.  
-- **Configurações de Telemetria e MQTT:** envio de métricas e integração com servidor MQTT.  
+### Temperatura, Umidade e Pressão
+- AHT10/AHT20  
+- BME280  
+- BMP280  
+- BME68x  
+- SHT31  
+- SHT4X  
+- BMP388  
 
----
+### Luminosidade e UV
+- OPT3001  
+- VEML7700  
+- TSL2591  
+- LTR390UV  
 
-## Sensores Suportados
-O firmware detecta automaticamente os sensores conectados via I²C, simplificando a integração.  
-Sensores já compatíveis incluem:
+### Tensão e Corrente
+- INA219  
+- INA226  
+- INA260  
+- INA3221  
 
-- **Temperatura, Umidade e Pressão:** AHT10/AHT20, BME280, BMP280, BME68x, SHT31, SHT4X, BMP388  
-- **Luminosidade e UV:** OPT3001, VEML7700, TSL2591, LTR390UV  
-- **Tensão e Corrente:** INA219, INA226, INA260, INA3221  
-- **Outros:** LPS22 (pressão), RCWL9620 (distância), DFROBOT_RAIN (chuva), RadSens (dosímetro)  
+### Outros
+- LPS22 (pressão)  
+- RCWL9620 (distância)  
+- DFROBOT_RAIN (chuva)  
+- RadSens (dosímetro)  
 
 ---
 
 ## Desafios e Melhorias Planejadas
 
-### 1. Fragilidade e Alcance Físico
-- **Desafio:** O protótipo de bancada é vulnerável a fatores ambientais e exige instalação da antena em locais elevados.  
-- **Melhoria:** Desenvolvimento de uma **estrutura robusta e à prova de intempéries**, que permita instalação adequada da antena.
+### 1. Desafio: Fragilidade e Alcance Físico
+O protótipo atual, em sua forma de bancada, é vulnerável a fatores ambientais. Para o alcance ideal do LoRa, a antena precisa ser instalada em locais elevados, o que exige uma estrutura robusta.  
 
-### 2. Integração e Automação de Dados
-- **Desafio:** Hoje os dados só podem ser acompanhados de forma passiva.  
-- **Melhoria:** Integração com o **Home Assistant**, permitindo armazenar dados em banco de dados e criar **rotinas de automação** (ex.: irrigação automática, alertas inteligentes).  
-
-### 3. Autonomia Energética em Locais Remotos
-- **Desafio:** Necessidade de funcionamento em locais sem acesso à rede elétrica.  
-- **Melhoria:** Uso de **bateria + placa solar de carregamento**, com monitoramento remoto do consumo energético.  
-
-### 4. Proteção do Equipamento
-- **Desafio:** Instalações remotas expõem o dispositivo a risco de furto.  
-- **Melhoria:** Inclusão de **sensor de presença (PIR)** integrado ao **GPS**, permitindo alertas de movimentação suspeita.  
+**Melhoria Planejada:** Desenvolvimento de uma estrutura física robusta e à prova de intempéries, capaz de abrigar todos os componentes. Esta estrutura permitirá a instalação da antena em locais altos e favoráveis, maximizando o alcance e a confiabilidade da rede.  
 
 ---
 
-## Conclusão
-O Projeto AURA demonstra grande potencial como solução de **monitoramento ambiental distribuído**, combinando:  
-- **Baixo custo**,  
-- **Escalabilidade**,  
-- **Flexibilidade de integração**,  
-- **Confiabilidade de comunicação**.  
+### 2. Desafio: Integração e Automação de Dados
+O sistema atual permite apenas o acompanhamento passivo dos dados via smartphones e web. Para uma solução mais robusta, é essencial que os dados de telemetria possam acionar rotinas e interagir com outros sistemas.  
 
-As melhorias planejadas visam torná-lo viável para **implantação em larga escala**, tornando-se uma ferramenta poderosa para **telemetria, automação e proteção ambiental**.
+**Melhoria Planejada:** Integração com o Home Assistant. Essa melhoria permitirá que os dados coletados sejam armazenados em um banco de dados sólido e sejam usados para criar rotinas de automação, como ligar um sistema de irrigação ou ativar alertas com base em leituras específicas dos sensores.  
+
+---
+
+### 3. Desafio: Autonomia Energética em Locais Remotos
+Para instalações em campo, longe de fontes de energia, a autonomia do dispositivo é um requisito fundamental.  
+
+**Melhoria Planejada:** Implementação de uma solução de alimentação baseada em bateria e uma placa solar de carregamento. O firmware já é capaz de transmitir informações de energia do dispositivo (tensão e cor
