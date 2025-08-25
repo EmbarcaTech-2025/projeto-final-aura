@@ -1,5 +1,7 @@
 # Projeto AURA: Estado Atual, Desafios e Evolução Futura
 
+Video https://youtu.be/82IFVK0RW4U
+
 ## Estado Atual
 O Projeto AURA alcançou um estágio de protótipo funcional altamente eficaz, validando sua arquitetura e capacidades centrais. Atualmente, o sistema é plenamente capaz de ler dados de múltiplos sensores ambientais conectados ao barramento I²C e transmiti-los via rádio LoRa com uma eficiência energética notável, permitindo um longo alcance de até 3 km.
 
