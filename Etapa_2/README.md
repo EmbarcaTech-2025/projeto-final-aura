@@ -1,42 +1,46 @@
-# 📊 Gráficos e Fluxogramas do Projeto AURA
+# 📊 Diagramas e Fluxogramas do Projeto AURA
 
-Este documento descreve visualmente o funcionamento físico e lógico do sistema AURA, por meio de imagens explicativas e fluxogramas de software. O sistema é modular e robusto, composto por Nós Sensores, um Nó Gateway MQTT e um Servidor Backend, conectados por uma rede de comunicação LoRa Mesh baseada em Meshtastic.
+Este documento descreve visualmente o funcionamento físico e lógico do sistema AURA. As seções a seguir detalham a arquitetura de hardware, o fluxo de dados entre os componentes e a lógica de software que governa cada parte do sistema.
 
----
+### 🖼️ Diagrama de Hardware
 
-## 🖼️ Imagem 1: Arquitetura Física do Nó Sensor
+O diagrama a seguir detalha a montagem física e as conexões elétricas de um Nó Sensor, a unidade de campo responsável pela coleta de dados. A arquitetura foi organizada em módulos para facilitar a compreensão.
 
-![Arquitetura Física do Nó Sensor](aura_sensors.png)
+![Diagrama de conexões](Conexoes.png)
 
-Esta imagem detalha a montagem física de um único **Nó Sensor**, a unidade instalada no campo para coletar dados meteorológicos. Ela representa a montagem prática do hardware do projeto.
-
-### Componentes:
+## Descrição dos Módulos e Componentes
+### A. Unidade Central de Processamento e Comunicação
 
 - **🧠 O Cérebro da Operação:**  
   A placa **Heltec WiFi LoRa 32 V3** está no centro do sistema. Esse microcontrolador executa o firmware **Meshtastic**, lê os sensores conectados e comanda a transmissão dos dados via rádio LoRa.
 
-- **🖐️ Os Sentidos do Nó:**  
-  Em torno da Heltec, temos sensores que permitem ao nó "sentir" o ambiente:
-  
-  - **GY-BME280 (roxo):** Mede **temperatura**, **umidade do ar** e **pressão barométrica**. Sensor fundamental para previsão de chuva.
-  - **TSL2591 (azul, abaixo):** Mede a **intensidade da luz ambiente** (em Lux), útil para análises de radiação solar.
-  - **UV Sensor (azul, à esquerda):** Mede a **radiação ultravioleta**.
-  - **AHT10 (azul, à direita):** Sensor alternativo/redundante de **temperatura** e **umidade**.
+### B. Módulo de Sensores Ambientais 🖐️
 
-- **🔌 Comunicação Interna (I²C):**  
-  A fiação colorida demonstra o uso do barramento **I²C**. Essa escolha permite conectar múltiplos sensores ao microcontrolador com apenas **duas linhas de dados** (SDA e SCL), simplificando o circuito e economizando pinos.
+Função: Coletar as variáveis meteorológicas do ambiente. Todos os sensores comunicam-se com a unidade central através do mesmo barramento I2C, otimizando as conexões.
 
-➡️ Esta imagem é, essencialmente, o plano de montagem de cada estação meteorológica AURA.
+Componentes:
 
----
+* GY-BME280: Mede temperatura, umidade relativa do ar e pressão barométrica.
 
-## 🖼️ Imagem 2: Arquitetura de Comunicação e Dados
+* TSL2591: Mede a intensidade da luz visível e infravermelha (luminosidade).
 
-![Arquitetura de Comunicação e Dados](aura_meshtastic.png)
+* LTR-390: Mede a intensidade da radiação ultravioleta (UV).
 
-Esta imagem ilustra a **arquitetura lógica** do sistema AURA — como os dados se deslocam do campo até o servidor.
+* AHT10: Sensor secundário para medição de temperatura e umidade.
 
-### Elementos principais:
+Detalhamento das Conexões
+
+As linhas no diagrama distinguem claramente os tipos de sinais trocados entre os componentes:
+
+* Linhas de Alimentação (Tracejada/Vermelha): Conexões VCC (3.3V) e GND que fornecem energia da placa Heltec para todos os sensores.
+
+* Linhas de Dados e Controle (Sólida/Verde): Conexões do barramento I2C, composto pelos pinos SDA (Serial Data) e SCL (Serial Clock), que sincronizam e transferem os dados dos sensores para o microcontrolador.
+
+## 🖼️ Blocos Funcionais: Arquitetura de Comunicação e Dados
+
+Este diagrama ilustra a arquitetura lógica do sistema AURA, detalhando o fluxo de informações entre os diferentes módulos, desde a coleta de dados no campo até sua disponibilização para análise.
+
+![Diagrama de blocos funcionais](blocos_funcionais.png)
 
 - **🌐 A Ponte entre Mundos (Nó Gateway):**  
   O nó gateway tem um pé no mundo do campo (via **LoRa**) e outro na internet (via **Wi-Fi**). Ele capta os dados da malha LoRa e os envia para a nuvem por meio do protocolo **MQTT**.
@@ -50,19 +54,55 @@ Esta imagem ilustra a **arquitetura lógica** do sistema AURA — como os dados 
 - **📱 Interface com o Usuário:**  
   O Meshtastic permite conexão via **Bluetooth**, permitindo que um usuário configure um nó ou visualize dados localmente usando um app.
 
----
+### Descrição do Fluxo de Informações
 
-## 🔁 Imagem 3: Etapa 1 – Coleta de Dados no Nó Sensor
+A jornada dos dados através do sistema ocorre na seguinte sequência:
 
-![Fluxograma Etapa 1](no_sensor.png)
+* Coleta e Configuração Local: No campo, o Nó Sensor coleta dados ambientais. Um Smartphone pode se conectar a ele via Bluetooth para realizar configurações ou visualizar dados em tempo real.
 
-Esta imagem representa a **primeira etapa** do sistema AURA: a coleta de dados feita pelos Nós Sensores.
+* Transmissão via Rádio: O Nó Sensor transmite os dados coletados para a Rede LoRa Mesh. Outros nós na rede podem retransmitir essa informação, aumentando o alcance e a robustez da comunicação.
+
+* Ponte para a Internet: O Nó Gateway, que possui conectividade tanto LoRa quanto Wi-Fi, escuta os pacotes na rede mesh.
+
+* Publicação Centralizada: Ao receber um pacote, o Gateway o publica em um Broker MQTT através da rede Wi-Fi. O broker atua como um servidor central de mensagens.
+
+* Processamento e Armazenamento: O Servidor Backend, que está "inscrito" no broker, recebe a mensagem instantaneamente. Ele então processa e armazena esses dados em um banco de dados para análises futuras.
+
+* Acesso pelo Usuário: O usuário final pode interagir com o sistema localmente (via Bluetooth) ou acessar os dados consolidados e históricos remotamente através de aplicações conectadas ao Servidor Backend.
+  
+## 🔁 Fluxograma de Software
+
+Fluxograma de Software
+
+Os fluxogramas a seguir detalham a lógica de operação do software em cada um dos três componentes principais do sistema AURA. Os símbolos utilizados estão em conformidade com as convenções da norma ISO 5807, onde retângulos com cantos arredondados indicam início/fim, retângulos representam processos e losangos representam decisões.
+
+### Etapa 1 – Coleta de Dados no Nó Sensor
+
+Descreve a lógica executada em cada nó de campo para coletar e transmitir dados de forma eficiente.
+
+![Fluxograma (etapa 1)](fluxograma_1.png)
+
+* Ligar o dispositivo: O fluxo se inicia quando o nó é energizado.
+
+* Inicializar hardware: O firmware Meshtastic é carregado, o barramento I2C é ativado e a comunicação com os sensores é verificada.
+
+* Configurar módulo de telemetria: O intervalo entre as leituras é definido (ex: 5 minutos), otimizando o consumo de energia.
+
+* Meshtastic assume o controle: O dispositivo entra em seu ciclo principal, gerenciando a rede e entrando em modo de baixo consumo (deep sleep).
+
+* Decisão: É hora de ler os sensores?: O firmware verifica se o tempo do intervalo configurado já decorreu. Em caso negativo, permanece em deep sleep.
+
+* Ler dados dos sensores: Caso o intervalo tenha passado, o sistema "acorda" e coleta as medições de todos os sensores conectados.
+
+* Validar e criar pacote: Os dados lidos são validados e formatados em um pacote de telemetria padrão do Meshtastic.
+
+* Entregar para transmissão: O pacote finalizado é entregue ao rádio para ser transmitido via LoRa. Após isso, o sistema retorna ao ciclo de deep sleep.
 
 ### Funcionamento:
 
 - **Inicialização:**
   - Ao ser ligado, o nó ativa a placa Heltec e o firmware Meshtastic.
-  - Estabelece comunicação com os sensores via **I²C**.
+  - Estabelece comunicação com os sensores via **I2C**.
   - Verifica se os sensores estão funcionando e registra falhas.
 
 - **Operação Periódica (Agendada):**
@@ -78,13 +118,27 @@ Esta imagem representa a **primeira etapa** do sistema AURA: a coleta de dados f
 
 💡 O Nó Sensor **não se conecta à internet** — sua função é exclusivamente local.
 
----
+### Etapa 2 – Ponte para a Internet no Nó Gateway MQTT
 
-## 🌐 Imagem 4: Etapa 2 – Ponte para a Internet no Nó Gateway MQTT
+Detalha a operação do nó que serve como ponte entre a rede LoRa e a internet.
 
-![Fluxograma Etapa 2](gateway.png)
+![Fluxograma (etapa 2)](fluxograma_2.png)
 
-Esta imagem representa a **segunda etapa**: a função do **Nó Gateway MQTT**, responsável por conectar a rede LoRa à internet.
+* Ligar o dispositivo Gateway: O processo se inicia com a energização do gateway.
+
+* Conectar-se à rede Wi-Fi: A primeira ação é tentar estabelecer uma conexão com a rede Wi-Fi local. Em caso de falha, novas tentativas são feitas.
+
+* Conectar-se ao Servidor MQTT: Com a conexão Wi-Fi ativa, o gateway se conecta ao Broker MQTT.
+
+* Meshtastic assume o loop principal: O firmware passa a gerenciar ativamente as duas interfaces de comunicação: LoRa para escutar a rede de campo e Wi-Fi para se manter conectado ao broker.
+
+* Decisão: Recebeu pacote de telemetria?: O gateway monitora continuamente a rede LoRa. Se nenhum pacote é recebido, ele permanece em escuta.
+
+* Decodificar pacote LoRa: Ao receber um pacote, os dados brutos dos sensores são extraídos.
+
+* Formatar em JSON: Os dados extraídos são estruturados em um formato de texto leve e legível (JSON).
+
+* Publicar no tópico MQTT: A mensagem JSON é enviada para o tópico apropriado no Broker MQTT. Em seguida, o gateway volta ao modo de escuta.
 
 ### Funcionamento:
 
@@ -100,15 +154,27 @@ Esta imagem representa a **segunda etapa**: a função do **Nó Gateway MQTT**, 
     - Converte para o formato **JSON**.
     - Publica no **tópico MQTT** configurado no broker.
 
-🔁 Esse nó é o **tradutor** entre o campo e a nuvem.
+### Etapa 3 – Recepção e Armazenamento no Servidor Backend
 
----
+Descreve a lógica do serviço que roda no servidor para receber, processar e armazenar os dados de forma persistente.
 
-## 🧠 Imagem 5: Etapa 3 – Recepção e Armazenamento no Servidor Backend
+![Fluxograma (etapa 3)](fluxograma_3.png)
 
-![Fluxograma Etapa 3](server.png)
+* Iniciar Broker MQTT: O servidor de mensagens é iniciado e fica pronto para receber conexões.
 
-Esta imagem representa a **terceira etapa**: o papel do servidor backend, responsável por armazenar e disponibilizar os dados.
+* Iniciar serviço de armazenamento: Um script ou aplicação de backend é executado.
+
+* Inscrever-se no tópico MQTT: O script se conecta ao broker e se inscreve no tópico de telemetria, informando que deseja receber todas as mensagens publicadas ali.
+
+* Decisão: Nova mensagem recebida?: O script entra em um loop de espera, aguardando por novas mensagens.
+
+* Ler e interpretar JSON: Ao receber uma mensagem, seu conteúdo em formato JSON é lido e analisado.
+
+* Extrair valores individuais: Os dados de cada sensor, assim como metadados (ID do nó, etc.), são extraídos da mensagem.
+
+* Conectar ao Banco de Dados: Uma conexão com o sistema de banco de dados (ex: InfluxDB) é estabelecida.
+
+* Inserir dados: Os valores extraídos são inseridos em uma tabela, geralmente acompanhados de um timestamp (data e hora). Após a inserção, o script volta a aguardar por novas mensagens.
 
 ### Funcionamento:
 
@@ -125,8 +191,3 @@ Esta imagem representa a **terceira etapa**: o papel do servidor backend, respon
   - Os dados armazenados podem ser usados por dashboards (ex: **Grafana**), modelos de previsão climática ou alertas automáticos.
 
 📦 Uma vez no servidor, os dados estão **seguros e acessíveis** para qualquer aplicação.
-
----
-
-> Este conjunto de gráficos e fluxogramas explica com clareza a estrutura descentralizada, eficiente e escalável do Projeto AURA — da coleta local à análise global.
-
