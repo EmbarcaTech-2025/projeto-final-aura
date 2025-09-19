@@ -6,7 +6,7 @@ O Projeto AURA cria uma rede de monitoramento climático de baixo custo, ideal p
 
 ## 2. Instalação e Configuração
 
-Para replicar o projeto, você precisará configurar dois componentes principais: os dispositivos da rede Meshtastic e o servidor Home Assistant.
+Para utilizar o projeto, você precisará configurar dois componentes principais, os dispositivos da rede Meshtastic e o servidor Home Assistant.
 
 ### 2.1. Configurando os Dispositivos Meshtastic (Nós Sensores e Gateway)
 
@@ -30,11 +30,11 @@ Após instalar o firmware, você precisa configurar cada dispositivo usando o ap
 1.  **Baixe o Aplicativo:** Instale o aplicativo Meshtastic em seu smartphone (disponível para [Android](https://play.google.com/store/apps/details?id=com.geeksville.mesh) e [iOS](https://apps.apple.com/us/app/meshtastic/id1586431213)).
 2.  **Emparelhe com o Dispositivo:** Ative o Bluetooth no seu celular, abra o aplicativo e procure por novos dispositivos. Selecione seu rádio Meshtastic para emparelhar. Um código pode ser exibido na tela OLED do dispositivo para confirmação.
 3.  **Configurações Essenciais:**
-    * **Região (Region):** No aplicativo, vá para "Configurações" -> "LoRa" e defina a região correta para sua localização (ex: `BR` para o Brasil). Isso é crucial para que os rádios operem na frequência legal permitida.
-    * **Canal (Channel):** Para que seus dispositivos se comuniquem, eles precisam estar no mesmo canal. Você pode manter o canal padrão ou criar um novo com nome e chave de criptografia personalizados para uma rede privada.
+    * **Região (Region):** No aplicativo, vá para "Configurações" -> "LoRa" e defina a região correta para sua localização (`BR` para o Brasil). Isso é crucial para que os rádios operem na frequência permitida.
+    * **Canal (Channel):** Para que seus dispositivos se comuniquem eles precisam estar no mesmo canal. Você pode manter o canal padrão ou criar um novo com nome e chave de criptografia personalizados para uma rede privada.
 4.  **Ativar o Módulo de Telemetria (Para os Nós Sensores):**
     * Vá para "Configurações" -> "Módulos" -> "Telemetria".
-    * **Ative o módulo** e defina o **"Intervalo de atualização"** (ex: 300 segundos para enviar dados a cada 5 minutos). O Meshtastic detectará automaticamente os sensores I²C conectados (como BME280).
+    * **Ative o módulo** e defina o **"Intervalo de atualização"** (ex: 300 segundos para enviar dados a cada 5 minutos). O Meshtastic detectará automaticamente os sensores I2C conectados (como BME280).
 5.  **Configurar o Nó Gateway:**
     * Para o dispositivo que será sua ponte com o Home Assistant, vá para "Configurações" -> "Módulos" -> "MQTT".
     * **Ative o MQTT** e marque a opção **"Habilitado como proxy MQTT"**.
@@ -42,7 +42,7 @@ Após instalar o firmware, você precisa configurar cada dispositivo usando o ap
 
 ### 2.2. Configurando o Home Assistant como Central de Dados
 
-O Home Assistant será o cérebro que recebe, armazena e age com base nos dados climáticos. A forma mais recomendada de instalá-lo é usando o **Home Assistant OS**.
+O Home Assistant será o que recebe, armazena e age com base nos dados climáticos. A forma mais recomendada de instalá-lo é usando o **Home Assistant OS**.
 
 #### **Passo 1: Instalação do Home Assistant OS**
 
@@ -78,7 +78,7 @@ Com isso, seu sistema está pronto para receber os dados. Agora você pode criar
 Basicamente, o sistema AURA opera em três partes:
 
 1.  **Coleta de Dados (Nós Sensores):**
-    * Dispositivos de campo, equipados com sensores I²C (ex: BME280 para temperatura/pressão, LTR-390 para UV), são controlados pelo firmware Meshtastic.
+    * Dispositivos de campo, equipados com sensores I2C (ex: BME280 para temperatura/pressão, LTR-390 para UV), são controlados pelo firmware Meshtastic.
     * Em intervalos de tempo pré-configurados, o dispositivo "acorda" do modo de baixo consumo (*deep sleep*), realiza a leitura dos sensores e formata os dados em um pacote de telemetria.
 2.  **Comunicação (Rede LoRa Mesh e Gateway):**
     * O pacote de telemetria é transmitido via rádio LoRa. A natureza "mesh" da rede Meshtastic permite que outros nós retransmitam essa mensagem, aumentando drasticamente o alcance e a confiabilidade da comunicação, contornando obstáculos.
@@ -86,3 +86,4 @@ Basicamente, o sistema AURA opera em três partes:
 3.  **Processamento (Home Assistant):**
     * O Gateway converte os dados do pacote LoRa para o formato JSON e os publica em um tópico específico no **Broker MQTT** que roda no Home Assistant.
     * O Home Assistant, que está "inscrito" nesse tópico, recebe os dados instantaneamente. As leituras são mapeadas para "entidades" dentro do sistema, permitindo que sejam usadas em painéis de visualização, gráficos históricos e, mais importante, como gatilhos para automações inteligentes (ex: acionar irrigação, enviar alertas de geada, etc.).
+
