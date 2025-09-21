@@ -71,6 +71,7 @@ O Home Assistant precisa de um extensão para receber as mensagens do seu Gatewa
 1.  **Adicione a Integração:** Vá para "Configurações" -> "Dispositivos e Serviços" e clique em "+ Adicionar Integração".
 2.  Procure por "MQTT" e selecione-o. O Home Assistant geralmente descobrirá o broker que você acabou de instalar. Siga os passos e forneça as credenciais que você criou.
 
+Após isso, é necessário incluir no arquivo [configuration.yaml](./configuration.yaml) a linha 'mqtt: !include mqtt.yaml'.
 Com isso, seu sistema está pronto para receber os dados. Agora você pode criar as entidades de sensor no seu arquivo [mqtt.yaml](./mqtt.yaml) para visualizar e usar os dados da sua rede AURA.
 Estes parâmetros podem ser obtidos lendo diretamente as mensagens MQTT ao conectar-se ao broker usando o [MQTT Explorer](https://mqtt-explorer.com/).
 Os principais parâmetros para configuração são o tópico da mensagem e o parametro 'from', que define qual a unidade responsável pela mensagem original, possibilitando então cadastrar separadamente os dados dos sensores de diferentes unidades no Home Assistant.
@@ -88,5 +89,6 @@ Basicamente, o sistema AURA opera em três partes:
 3.  **Processamento (Home Assistant):**
     * O Gateway converte os dados do pacote LoRa para o formato JSON e os publica em um tópico específico no **Broker MQTT** que roda no Home Assistant.
     * O Home Assistant, que está "inscrito" nesse tópico, recebe os dados instantaneamente. As leituras são mapeadas para "entidades" dentro do sistema, permitindo que sejam usadas em painéis de visualização, gráficos históricos e, mais importante, como gatilhos para automações inteligentes (ex: acionar irrigação, enviar alertas de geada, etc.).
+
 
 
