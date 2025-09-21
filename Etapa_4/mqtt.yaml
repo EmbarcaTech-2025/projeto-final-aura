@@ -1,0 +1,41 @@
+# ===================================================================
+# mqtt.yaml
+# Exemplo de arquivo de configuração para sensores
+# ===================================================================
+# Specify that the following entities are SENSORS
+sensor:
+  - name: "Heltec V3 (Sensor) Temperature"
+    unique_id: "meshtastic_temperature_db29aafc"
+    state_topic: "msh/US/2/json/AURA/!db2b12b0"
+    device_class: "temperature"
+    unit_of_measurement: "°C"
+    value_template: >
+      {% if value_json.from == 3676941052 and value_json.payload.temperature is defined %}
+        {{ value_json.payload.temperature }}
+      {% else %}
+        {{ states('sensor.heltec_v3_temperature') }}
+      {% endif %}
+
+  - name: "Heltec V3 (Sensor) Humidity"
+    unique_id: "meshtastic_humidity_db29aafc"
+    state_topic: "msh/US/2/json/AURA/!db2b12b0"
+    device_class: "humidity"
+    unit_of_measurement: "%"
+    value_template: >
+      {% if value_json.from == 3676941052 and value_json.payload.relative_humidity is defined %}
+        {{ value_json.payload.relative_humidity }}
+      {% else %}
+        {{ states('sensor.heltec_v3_humidity') }}
+      {% endif %}
+
+  - name: "Heltec V3 (Sensor) Barometric Pressure"
+    unique_id: "meshtastic_pressure_db29aafc"
+    state_topic: "msh/US/2/json/AURA/!db2b12b0"
+    device_class: "pressure"
+    unit_of_measurement: "hPa"
+    value_template: >
+      {% if value_json.from == 3676941052 and value_json.payload.barometric_pressure is defined %}
+        {{ value_json.payload.barometric_pressure }}
+      {% else %}
+        {{ states('sensor.heltec_v3_barometric_pressure') }}
+      {% endif %}
